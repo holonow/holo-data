@@ -7,7 +7,7 @@
     "holo-schedule": "^0.2.6"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc index.ts && node index.js"
   },
   "devDependencies": {
     "@types/jest": "^24.0.0",

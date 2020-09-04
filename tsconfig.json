@@ -17,9 +17,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "outDir": "build",
   },
   "include": [
-    "src"
+    "index.ts"
   ]
 }
