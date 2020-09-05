@@ -25,11 +25,12 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-      env:
-        YT_API_KEY: ${{ secrets.YT_API_KEY }}
     - run: npm install
     - run: mkdir build && cp index.html build
-    - run: npm run build
+    - name: Get data and build site
+      env:
+        YT_API_KEY: ${{ secrets.YT_API_KEY }}
+      run: npm run build
 
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
