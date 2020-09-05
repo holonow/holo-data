@@ -117,10 +117,21 @@ async function livesWithYouTubeInfo(
   return extendedLives;
 }
 
+const DEFAULT_MAP = {
+  '天音かなた': 'https://yt3.ggpht.com/a/AGF-l7_OdjohiBOVMZd0dHxZ1Jh1S1kJKGS0nYfNVg=s88-c-k-c0xffffffff-no-rj-mo',
+  '紫咲シオン': 'https://yt3.ggpht.com/a/AGF-l79Wv6njnWc-lQDwczBQVLgBIRMD8PJ72ZIPLg=s88-c-k-c0xffffffff-no-rj-mo'
+}
+function withDefaultMap(imgMap: Record<string, string>): Record<string, string> {
+  return {
+    ...DEFAULT_MAP,
+    ...imgMap,
+  }
+}
+
 async function main() {
   const { imgMap, oldLives, html } = await fetchRemoteData();
 
-  const { lives, dict } = parseScheduleHtml(html, imgMap);
+  const { lives, dict } = parseScheduleHtml(html, withDefaultMap(imgMap));
 
   getLiveDetails(lives);
   const extendedLives = await livesWithYouTubeInfo(lives, oldLives);
