@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.20.0",
-    "holo-schedule": "^0.2.6"
+    "holo-schedule": "^0.3.0"
   },
   "scripts": {
     "build": "tsc index.ts && node index.js"
