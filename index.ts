@@ -125,8 +125,6 @@ async function main() {
   getLiveDetails(lives);
   const extendedLives = await livesWithYouTubeInfo(lives, oldLives);
 
-  console.log(extendedLives)
-
   return Promise.all([
     write("build/schedule.json", JSON.stringify(extendedLives)),
     write("build/imageMap.json", JSON.stringify(dict)),
