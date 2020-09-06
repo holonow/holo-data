@@ -118,9 +118,9 @@ async function livesWithYouTubeInfo(
 }
 
 const DEFAULT_MAP = {
-  '天音かなた': 'https://yt3.ggpht.com/a/AGF-l7_OdjohiBOVMZd0dHxZ1Jh1S1kJKGS0nYfNVg=s88-c-k-c0xffffffff-no-rj-mo',
-  '紫咲シオン': 'https://yt3.ggpht.com/a/AGF-l79Wv6njnWc-lQDwczBQVLgBIRMD8PJ72ZIPLg=s88-c-k-c0xffffffff-no-rj-mo'
+ 'AZKi': 'https://yt3.ggpht.com/a/AGF-l78sBjQprltHOV3ptIVwxDTpYTpXk-_ad2huMQ=s88-c-k-c0xffffffff-no-rj-mo',
 }
+
 function withDefaultMap(imgMap: Record<string, string>): Record<string, string> {
   return {
     ...DEFAULT_MAP,
