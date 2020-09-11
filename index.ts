@@ -117,21 +117,10 @@ async function livesWithYouTubeInfo(
   return extendedLives;
 }
 
-const DEFAULT_MAP = {
- 'AZKi': 'https://yt3.ggpht.com/a/AGF-l78sBjQprltHOV3ptIVwxDTpYTpXk-_ad2huMQ=s88-c-k-c0xffffffff-no-rj-mo',
-}
-
-function withDefaultMap(imgMap: Record<string, string>): Record<string, string> {
-  return {
-    ...DEFAULT_MAP,
-    ...imgMap,
-  }
-}
-
 async function main() {
   const { imgMap, oldLives, html } = await fetchRemoteData();
 
-  const { lives, dict } = parseScheduleHtml(html, withDefaultMap(imgMap));
+  const { lives, dict } = parseScheduleHtml(html, imgMap);
 
   getLiveDetails(lives);
   const extendedLives = await livesWithYouTubeInfo(lives, oldLives);
