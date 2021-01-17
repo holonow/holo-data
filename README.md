@@ -1,5 +1,5 @@
 # Holo Data
-Data source for Holo Now.
+Data source for [Holo Now](https://holonow.github.io).
 
 ## Issue Report
 The repo is not watched.
