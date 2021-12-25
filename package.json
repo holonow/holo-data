@@ -3,19 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.21.1",
-    "holo-schedule": "^0.3.1"
+    "axios": "0.21.1",
+    "holo-schedule": "0.3.1"
   },
   "scripts": {
     "build": "tsc index.ts && node index.js"
   },
   "devDependencies": {
     "@types/jest": "^24.0.0",
-    "@types/node": "^12.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.0.1",
-    "@typescript-eslint/parser": "^4.0.1",
-    "eslint-config-airbnb": "^18.2.0",
-    "eslint-plugin-import": "^2.22.0",
-    "typescript": "^4.0.2"
+    "@types/node": "12.12.55",
+    "@typescript-eslint/eslint-plugin": "4.0.1",
+    "@typescript-eslint/parser": "4.0.1",
+    "eslint-config-airbnb": "18.2.0",
+    "eslint-plugin-import": "2.22.0",
+    "typescript": "4.0.2"
   }
 }
