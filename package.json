@@ -12,7 +12,7 @@
     "type-check": "tsc --noEmit index.ts"
   },
   "devDependencies": {
-    "@types/jest": "24.9.1",
+    "@types/jest": "27.4.0",
     "@types/node": "12.20.38",
     "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.33.0",
