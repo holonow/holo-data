@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "tsc index.ts && node index.js",
+    "lint": "eslint ./**/*.ts",
     "type-check": "tsc --noEmit index.ts"
   },
   "devDependencies": {

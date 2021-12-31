@@ -1,7 +1,7 @@
-import parseScheduleHtml, { LiveInfo } from "holo-schedule";
-import getScheduleHtml from "holo-schedule/lib/getScheduleHtml";
-import { writeFile } from "fs";
-import axios from "axios";
+import parseScheduleHtml, { LiveInfo } from 'holo-schedule';
+import getScheduleHtml from 'holo-schedule/lib/getScheduleHtml';
+import { writeFile } from 'fs';
+import axios from 'axios';
 
 interface Snippet {
   publishedAt: string;
@@ -10,17 +10,13 @@ interface Snippet {
   description: string;
   channelTitle: string;
 }
-interface Item {
-  id: string;
-  snippet: Snippet;
-}
 
 type SnippetDict = Record<string, Snippet>
 
 type ExtendLiveInfo = LiveInfo & Partial<Snippet>
 
-const MAP_URL = "https://holonow.github.io/holo-data/imageMap.json";
-const OLD_LIVES_URL = "https://holonow.github.io/holo-data/schedule.json";
+const MAP_URL = 'https://holonow.github.io/holo-data/imageMap.json';
+const OLD_LIVES_URL = 'https://holonow.github.io/holo-data/schedule.json';
 
 function write(path: string, data: string): Promise<void> {
   return new Promise((resolve, reject) => {
@@ -47,21 +43,21 @@ function recentLives(lives: LiveInfo[]): LiveInfo[] {
 async function getLiveDetails(lives: LiveInfo[]): Promise<SnippetDict> {
   const ids = recentLives(lives).map((live) => live.videoId);
   const params = {
-    id: ids.join(","),
-    part: "id,snippet",
+    id: ids.join(','),
+    part: 'id,snippet',
     key: process.env.YT_API_KEY,
   };
 
-  const VIDEOS_API_URL = "https://www.googleapis.com/youtube/v3/videos"
+  const VIDEOS_API_URL = 'https://www.googleapis.com/youtube/v3/videos';
   const { data } = await axios.get(VIDEOS_API_URL, { params });
 
-  const items: Item[] = data.items;
-  const dict: SnippetDict = {}
-  items.forEach(({id, snippet}) => {
-    dict[id] = snippet
-  })
+  const { items } = data;
+  const dict: SnippetDict = {};
+  items.forEach(({ id, snippet }) => {
+    dict[id] = snippet;
+  });
 
-  return dict
+  return dict;
 }
 
 async function fetchRemoteData() {
@@ -79,40 +75,40 @@ async function fetchRemoteData() {
 }
 
 function getOldLiveInfos(oldLives: ExtendLiveInfo[]): Record<string, ExtendLiveInfo> {
-  const dict: Record<string, ExtendLiveInfo> = {}
-  oldLives.forEach(live => {
+  const dict: Record<string, ExtendLiveInfo> = {};
+  oldLives.forEach((live) => {
     const { title, videoId } = live;
     if (title) {
-      dict[videoId] = live
+      dict[videoId] = live;
     }
-  })
-  return dict
+  });
+  return dict;
 }
 
 function pickInfo(info: Partial<Snippet>) {
-  const { title } = info
-  return { title }
+  const { title } = info;
+  return { title };
 }
 
 async function livesWithYouTubeInfo(
   lives: LiveInfo[],
-  oldLives: ExtendLiveInfo[]
+  oldLives: ExtendLiveInfo[],
 ): Promise<ExtendLiveInfo[]> {
-  const liveYtInfos = await getLiveDetails(lives)
-  const oldInfos = getOldLiveInfos(oldLives)
+  const liveYtInfos = await getLiveDetails(lives);
+  const oldInfos = getOldLiveInfos(oldLives);
 
-  const extendedLives = lives.map(live => {
-    const { videoId } = live
-    const ytInfo = liveYtInfos[videoId] || {}
-    const oldInfo = oldInfos[videoId] || {}
+  const extendedLives = lives.map((live) => {
+    const { videoId } = live;
+    const ytInfo = liveYtInfos[videoId] || {};
+    const oldInfo = oldInfos[videoId] || {};
 
-    const picked = pickInfo({...oldInfo, ...ytInfo})
+    const picked = pickInfo({ ...oldInfo, ...ytInfo });
 
     return {
       ...picked,
       ...live,
-    }
-  })
+    };
+  });
 
   return extendedLives;
 }
@@ -126,8 +122,8 @@ async function main() {
   const extendedLives = await livesWithYouTubeInfo(lives, oldLives);
 
   return Promise.all([
-    write("build/schedule.json", JSON.stringify(extendedLives)),
-    write("build/imageMap.json", JSON.stringify(dict)),
+    write('build/schedule.json', JSON.stringify(extendedLives)),
+    write('build/imageMap.json', JSON.stringify(dict)),
   ]);
 }
 
