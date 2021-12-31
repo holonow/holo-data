@@ -7,7 +7,8 @@
     "holo-schedule": "0.5.1"
   },
   "scripts": {
-    "build": "tsc index.ts && node index.js"
+    "build": "tsc index.ts && node index.js",
+    "type-check": "tsc --noEmit index.ts"
   },
   "devDependencies": {
     "@types/jest": "24.9.1",
