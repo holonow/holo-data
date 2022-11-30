@@ -60,18 +60,32 @@ async function getLiveDetails(lives: LiveInfo[]): Promise<SnippetDict> {
   return dict;
 }
 
+async function fetchMap() {
+  try {
+    const res = await axios.get(MAP_URL);
+    return res.data;
+  } catch {
+    return undefined;
+  }
+}
+
+async function fetchLives() {
+  try {
+    const res = await axios.get(OLD_LIVES_URL);
+    return res.data;
+  } catch {
+    return [];
+  }
+}
+
 async function fetchRemoteData() {
-  const [mapRes, oldLivesRes, html] = await Promise.all([
-    axios.get(MAP_URL),
-    axios.get(OLD_LIVES_URL),
+  const [imgMap, oldLives, html] = await Promise.all([
+    fetchMap(),
+    fetchLives(),
     getScheduleHtml(),
   ]);
 
-  return {
-    imgMap: mapRes.data,
-    oldLives: oldLivesRes.data,
-    html,
-  };
+  return { imgMap, oldLives, html };
 }
 
 function getOldLiveInfos(oldLives: ExtendLiveInfo[]): Record<string, ExtendLiveInfo> {
